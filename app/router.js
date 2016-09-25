@@ -8,6 +8,7 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('exchange');
+  this.route('activation');
 });
 
 export default Router;
