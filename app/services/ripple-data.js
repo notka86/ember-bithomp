@@ -19,7 +19,7 @@ export default Ember.Service.extend({
     } else if (issuerName === 'TokyoJPY') {
       issuer = 'r94s8px6kSw1uZ1MV98dhSRTvc6VMPoPcN';
     } else {
-      if (issuerName.substr(0, 1) == 'r' && issuerName.length > 25 && issuerName.length < 36 ) {
+      if (issuerName.substr(0, 1) === 'r' && issuerName.length > 25 && issuerName.length < 36 ) {
         issuer = issuerName;
       }
     }
@@ -29,7 +29,6 @@ export default Ember.Service.extend({
   xrpPrice(exchange_currency, exchange_issuer) {
     exchange_issuer = this.issuerAddress(exchange_issuer);
     let reqUrl = dataApi + 'normalize?amount=1&exchange_currency=' + exchange_currency + '&exchange_issuer=' + exchange_issuer;
-    let data = false;
     return this.get('ajax').request(reqUrl)
     .then((price) => {
       if (price.result) {
@@ -57,7 +56,6 @@ export default Ember.Service.extend({
     issuer = this.issuerAddress(issuer);
     exchange_issuer = this.issuerAddress(exchange_issuer);
     let reqUrl = dataApi + 'normalize?amount=' + amount + '&currency=' + currency + '&issuer=' + issuer + '&exchange_currency=' + exchange_currency + '&exchange_issuer=' + exchange_issuer;
-    let data = false;
     this.get('ajax').request(reqUrl)
     .then((price) => {
       if (price.result) {
@@ -73,7 +71,7 @@ export default Ember.Service.extend({
             amount: price.amount,
             converted: price.converted,
             rate: price.rate
-          }
+          };
         }
       } else {
         console.log('xrp-price ticker error: can not fetch data');

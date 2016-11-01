@@ -18,7 +18,6 @@ export default Ember.Component.extend({
       Ember.run.later(this,(function() {
         this.checkTicker();
         this.poll();
-        console.log('polling'); //DELETE
       }), 3000);
     }
   },
