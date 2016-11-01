@@ -4,5 +4,14 @@
     <button onclick="location.href='https://bithomp.com/explorer/';">Block explorer</button>
     <button onclick="location.href='https://bithomp.com/create/';">New account</button>
     {{link-to "Exchange" "exchange" tagName="button"}}
+
+    <strong>
+      {{xrp-price currency='USD' issuer='Bitstamp'}}
+      {{xrp-price currency='JPY' issuer='TokyoJPY'}}
+      {{xrp-price currency='CNY' issuer='RippleCN'}}
+      {{xrp-price currency='KRW' issuer='eXRP'}}
+      {{xrp-price currency='EUR' issuer='Gatehub'}}
+    </strong>
+
   </center>
 {{/main-box}}
