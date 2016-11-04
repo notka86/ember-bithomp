@@ -3,31 +3,31 @@ var dataApi = 'https://data.ripple.com/v2/';
 
 export default Ember.Service.extend({
   ajax: Ember.inject.service(),
-
-  issuerAddress(issuerName) {
-    let issuer = 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B'; //Bitstamp default
-    if (issuerName === 'Bitstamp') {
-      issuer = 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B';
-    } else if (issuerName === 'Gatehub') {
-      issuer = 'rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq';
-    } else if (issuerName === 'Bluzelle') {
-       issuer = 'raBDVR7JFq3Yho2jf7mcx36sjTwpRJJrGU';
-    } else if (issuerName === 'RippleCN') {
-      issuer = 'rnuF96W4SZoCJmbHYBFoJZpR8eCaxNvekK';
-    } else if (issuerName === 'eXRP') {
-      issuer = 'rPxU6acYni7FcXzPCMeaPSwKcuS2GTtNVN';
-    } else if (issuerName === 'TokyoJPY') {
-      issuer = 'r94s8px6kSw1uZ1MV98dhSRTvc6VMPoPcN';
-    } else {
-      if (issuerName.substr(0, 1) === 'r' && issuerName.length > 25 && issuerName.length < 36 ) {
-        issuer = issuerName;
+  
+  //should be replaced with real api call to backend
+  issuerName(issuer) {
+    let issuerName = issuer.substr(0, 7) + '...';
+    if (issuer === 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B') {
+      issuerName = 'Bitstamp';
+    } else if (issuer === 'rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq') {
+      issuerName = 'Gatehub';
+    } else if (issuer === 'raBDVR7JFq3Yho2jf7mcx36sjTwpRJJrGU') {
+      issuerName = 'Bluzelle';
+    } else if (issuer === 'rnuF96W4SZoCJmbHYBFoJZpR8eCaxNvekK') {
+      issuerName = 'RippleCN';
+    } else if (issuer === 'rPxU6acYni7FcXzPCMeaPSwKcuS2GTtNVN') {
+      issuerName = 'eXRP';
+    } else if (issuer === 'r94s8px6kSw1uZ1MV98dhSRTvc6VMPoPcN') {
+      issuerName = 'TokyoJPY';
+    } else { //wrong issuer
+      if (issuer.substr(0, 1) !== 'r' || issuer.length < 26 || issuer.length > 35 ) {
+        issuerName = issuer;
       }
     }
-    return issuer;
+    return issuerName;
   },
 
   xrpPrice(exchange_currency, exchange_issuer) {
-    exchange_issuer = this.issuerAddress(exchange_issuer);
     let reqUrl = dataApi + 'normalize?amount=1&exchange_currency=' + exchange_currency + '&exchange_issuer=' + exchange_issuer;
     return this.get('ajax').request(reqUrl)
     .then((price) => {
@@ -53,7 +53,6 @@ export default Ember.Service.extend({
   },
 
   exchangePrice(amount, currency, issuer, exchange_currency, exchange_issuer) {
-    issuer = this.issuerAddress(issuer);
     exchange_issuer = this.issuerAddress(exchange_issuer);
     let reqUrl = dataApi + 'normalize?amount=' + amount + '&currency=' + currency + '&issuer=' + issuer + '&exchange_currency=' + exchange_currency + '&exchange_issuer=' + exchange_issuer;
     this.get('ajax').request(reqUrl)

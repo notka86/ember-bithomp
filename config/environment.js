@@ -13,7 +13,7 @@ module.exports = function(environment) {
       }
     },
     googleFonts: [
-      'Open+Sans:400,600', //Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext
+      'Open+Sans:400,400italic,700', //Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext
       //'Roboto:300'
     ],
     /*

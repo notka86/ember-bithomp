@@ -2,6 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   rippleData: Ember.inject.service(),
+  classNames: ['xrp-price', 'table-row'],
+
+  color: 'blue',
 
   didInsertElement: function() {
     this.set('live', true);
@@ -22,11 +25,30 @@ export default Ember.Component.extend({
     }
   },
 
+  name: function() {
+    return this.get('rippleData').issuerName(this.get('issuer'));
+  }.property('issuer'),
+
+  chartLink: function() {
+    let server = 'https://bithomp.com';
+    let link = server + '/priceticker/embed/pricechart?theme=light&type=line&counter={"currency":"';
+    link = link + this.get('currency') + '","issuer":"' + this.get('issuer') + '"}&base={"currency":"XRP"}';
+    return link;
+  }.property('issuer', 'currency'),
+
   checkTicker: function() {
+    let oldRate = this.get('rate');
     this.get('rippleData').xrpPrice(this.get('currency'), this.get('issuer'))
     .then((rate) => {
       if (this.get('live')) {
         this.set('rate', rate);
+        if (oldRate < rate) {
+          this.set('color', 'orange');
+        } else if (oldRate > rate) {
+          this.set('color', 'green');
+        } else {
+          this.set('color', 'blue');
+        }
       }
     });
   }

@@ -9,15 +9,16 @@ html
     font-family 'Open Sans', sans-serif
     font-weight 400
     font-size 14px
+    line-height 20px
 
     button
       cursor pointer
       margin-right 7px
       margin-left 7px
       margin-bottom 14px
-      background-color $blue
+      background-color $blue-button
       border 1px solid 
-      border-color $blue
+      border-color $blue-button
       color $white
       font-size 14px
       font-weight 500
@@ -33,9 +34,31 @@ html
       text-decoration none
 
       &:hover, &:focus
-        color $link-color
+        color $blue-link
         text-decoration underline
+
+    .table
+      display table
+
+    .table-row
+       display table-row
+
+    .table-cell
+       display table-cell
+
+    .blue
+      color $blue
+
+    .red
+      color $red
+
+    .green
+      color $green
+
+    .orange
+      color $orange
 
 @import "ui/loading-slider"
 @import "ui/main-box"
 @import "ui/social-icons"
+@import "ui/xrp-price"
