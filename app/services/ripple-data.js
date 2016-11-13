@@ -5,7 +5,7 @@ export default Ember.Service.extend({
   ajax: Ember.inject.service(),
   
   //should be replaced with real api call to backend
-  issuerName(issuer) {
+  issuerName: function(issuer) {
     let issuerName = issuer.substr(0, 7) + '...';
     if (issuer === 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B') {
       issuerName = 'Bitstamp';
@@ -27,66 +27,141 @@ export default Ember.Service.extend({
     return issuerName;
   },
 
-  xrpPrice(exchange_currency, exchange_issuer) {
+  xrpPrice: function(exchange_currency, exchange_issuer) {
     let reqUrl = dataApi + 'normalize?amount=1&exchange_currency=' + exchange_currency + '&exchange_issuer=' + exchange_issuer;
     return this.get('ajax').request(reqUrl)
-    .then((price) => {
-      if (price.result) {
-        if (price.result !== 'success') {
-          if (price.message) {
-            console.log('xrp-price ticker error: ' + price.message);
+    .then((data) => {
+      if (data.result) {
+        if (data.result !== 'success') {
+          if (data.message) {
+            console.log('xrp-price ticker: ' + data.message);
           } else {
-            console.log('xrp-price ticker error: ' + price.result);
+            console.log('xrp-price ticker: ' + data.result);
           }
           return false;
         } else {
-          return price.converted;
+          return data.converted;
         }
       } else {
-        console.log('xrp-price ticker error: can not fetch data');
+        console.log('xrp-price ticker: can not fetch data');
         return false;
       }
     }, () => {
-      console.log('xrp-price ticker error: server error');
+      console.log('xrp-price ticker: server error');
       return false;
     });
   },
 
-  exchangePrice(amount, currency, issuer, exchange_currency, exchange_issuer) {
+  exchangePrice: function(amount, currency, issuer, exchange_currency, exchange_issuer) {
     exchange_issuer = this.issuerAddress(exchange_issuer);
     let reqUrl = dataApi + 'normalize?amount=' + amount + '&currency=' + currency + '&issuer=' + issuer + '&exchange_currency=' + exchange_currency + '&exchange_issuer=' + exchange_issuer;
     this.get('ajax').request(reqUrl)
-    .then((price) => {
-      if (price.result) {
-        if (price.result !== 'success') {
-          if (price.message) {
-            console.log('xrp-price ticker error: ' + price.message);
+    .then((data) => {
+      if (data.result) {
+        if (data.result !== 'success') {
+          if (data.message) {
+            console.log('xrp-price ticker: ' + data.message);
           } else {
-            console.log('xrp-price ticker error: ' + price.result);
+            console.log('xrp-price ticker: ' + data.result);
           }
           return false;
         } else {
           return {
-            amount: price.amount,
-            converted: price.converted,
-            rate: price.rate
+            amount: data.amount,
+            converted: data.converted,
+            rate: data.rate
           };
         }
       } else {
-        console.log('xrp-price ticker error: can not fetch data');
+        console.log('xrp-price ticker: can not fetch data');
         return false;
       }
     }, () => {
-      console.log('xrp-price ticker error: server error');
+      console.log('xrp-price ticker: server error');
+      return false;
+    });
+  },
+
+  /*
+  {"result":"error","message":"invalid amount"}
+  {"result":"success","amount":"2000","converted":"12.400599364323527","rate":"0.0062002997"}
+  {"result":"error","message":"issuer is required"}
+  {"result":"success","amount":"2000","converted":"0","rate":"0.0000000"}
+  */  
+
+  activatedAccounts: function() {
+    let reqUrl = dataApi + 'accounts/?reduce=true';
+    return this.get('ajax').request(reqUrl)
+    .then((data) => {
+      if (data.result) {
+        if (data.result !== 'success') {
+          if (data.message) {
+            console.log('activatedAccounts: ' + data.message);
+          } else {
+            console.log('activatedAccounts: ' + data.result);
+          }
+          return false;
+        } else {
+          return data.count;
+        }
+      } else {
+        console.log('activatedAccounts: can not fetch data');
+        return false;
+      }
+    }, () => {
+      console.log('activatedAccounts: server error');
+      return false;
+    });
+  },
+
+  nodes: function() {
+    let reqUrl = dataApi + 'network/topology/nodes';
+    return this.get('ajax').request(reqUrl)
+    .then((data) => {
+      if (data.result) {
+        if (data.result !== 'success') {
+          if (data.message) {
+            console.log('nodes: ' + data.message);
+          } else {
+            console.log('nodes: ' + data.result);
+          }
+          return false;
+        } else {
+          return data.count;
+        }
+      } else {
+        console.log('nodes: can not fetch data');
+        return false;
+      }
+    }, () => {
+      console.log('nodes: server error');
+      return false;
+    });
+  },
+
+  validators: function() {
+    let reqUrl = dataApi + 'network/validators';
+    return this.get('ajax').request(reqUrl)
+    .then((data) => {
+      if (data.result) {
+        if (data.result !== 'success') {
+          if (data.message) {
+            console.log('validators: ' + data.message);
+          } else {
+            console.log('validators: ' + data.result);
+          }
+          return false;
+        } else {
+          return data.count;
+        }
+      } else {
+        console.log('validators: can not fetch data');
+        return false;
+      }
+    }, () => {
+      console.log('validators: server error');
       return false;
     });
   },
 
 });
-
-/*
-{"result":"error","message":"invalid amount"}
-{"result":"success","amount":"2000","converted":"12.400599364323527","rate":"0.0062002997"}
-{"result":"error","message":"issuer is required"}
-{"result":"success","amount":"2000","converted":"0","rate":"0.0000000"}
-*/

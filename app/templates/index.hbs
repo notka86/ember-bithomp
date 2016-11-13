@@ -1,4 +1,4 @@
-{{#main-box title="Choose a Ripple tool"}}
+{{#main-box title="Choose a Ripple tool" fullFooter=true}}
   <center>
     {{link-to "Ripple account activation" "activation" tagName="button"}}
     <button onclick="location.href='https://bithomp.com/explorer/';">Block explorer</button>
@@ -11,5 +11,130 @@
       {{xrp-price currency='KRW' issuer='rPxU6acYni7FcXzPCMeaPSwKcuS2GTtNVN'}}
       {{xrp-price currency='EUR' issuer='rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq'}}
     </div>
+    {{#if activatedAccounts}}
+      <hr>
+      <h2>Statistics</h2>
+      <div class="table statistics">
+        <div class="table-row">
+          <div class="table-cell td1">
+            Activated accounts:
+          </div>
+          <div class="table-cell td2 blue bold">
+            {{add-commas activatedAccounts}}
+          </div>
+        </div>
+        {{#if explored}}
+          <div class="table-row">
+            <div class="table-cell td1">
+              Explored at Bithomp:
+            </div>
+            <div class="table-cell td2 blue bold">
+              {{add-commas explored}}
+            </div>
+          </div>
+        {{/if}}
+        {{#if nodes}}
+          <div class="table-row">
+            <div class="table-cell td1">
+              Active nodes:
+            </div>
+            <div class="table-cell td2 blue bold">
+              {{nodes}}
+            </div>
+          </div>
+        {{/if}}
+        {{#if validators}}
+          <div class="table-row">
+            <div class="table-cell td1">
+              Known validators:
+            </div>
+            <div class="table-cell td2 blue bold">
+              {{validators}}
+            </div>
+          </div>
+        {{/if}}
+      </div>
+    {{/if}}
+
+    <hr>
+    <h2>XRP Distribution</h2>
+    <div class="table distribution">
+      <div class="table-row">
+        <div class="table-cell td1">
+          From date:
+        </div>
+        <div class="table-cell td2">
+          {{#if distributionFrom}}
+            {{distributionFrom}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          To date:
+        </div>
+        <div class="table-cell td2 bold">
+          {{#if distributionTo}}
+            {{distributionTo}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          Distributed:
+        </div>
+        <div class="table-cell td2 blue">
+          {{#if distributed}}
+            {{add-commas distributed}} XRP
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <br />
+      <div class="table-row">
+        <div class="table-cell td1">
+          Held by Ripple:
+        </div>
+        <div class="table-cell td2 blue">
+          {{#if heldByRipple}}
+            {{add-commas heldByRipple}} XRP
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          Held by others:
+        </div>
+        <div class="table-cell td2 blue">
+          {{#if heldByOthers}}
+            {{add-commas heldByOthers}} XRP*
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          Total XRP:
+        </div>
+        <div class="table-cell td2 blue">
+          {{#if totalXRP}}
+            {{add-commas totalXRP}} XRP
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    <p>
+    *Total includes business development agreements that are still pending.
+    </p>
   </center>
 {{/main-box}}

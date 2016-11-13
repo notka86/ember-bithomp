@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import config from '../config/environment';
 
 export default Ember.Component.extend({
   rippleData: Ember.inject.service(),
@@ -9,7 +10,9 @@ export default Ember.Component.extend({
   didInsertElement: function() {
     this.set('live', true);
     this.checkTicker();
-    this.poll();
+    if (config.environment !== 'development') {
+      this.poll();
+    }
   },
 
   willDestroyElement: function() {
