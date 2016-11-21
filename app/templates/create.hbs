@@ -1,0 +1,31 @@
+{{#main-box title="Create your new Ripple account" class="create"}}
+  <div id="newAccount">
+
+    <div class="input-prepend" title="Ripple address">
+      <span class="prepend {{if address "active"}}"><i class="xrp"></i></span>
+      <input type="text" placeholder="Ripple address" readonly="readonly" value="{{address}}" />
+    </div>
+
+    <div class="input-prepend" title="Ripple secret">
+      <span class="prepend {{if secret "active"}}"><i class="fa-icon fa-key"></i></span>
+      <input type="text" placeholder="Ripple secret" readonly="readonly" value="{{secret}}" />
+    </div>
+    <!-- no loader yet! -->
+    <div class="status">
+      {{#if process}}
+        Status: <img src="images/ui/loading.png" class="loading">
+      {{else if address}}
+        Note: <i class='orange'>Don't share your secret key.</i>
+      {{/if}}
+    </div>
+     
+    <button {{action "newRipple"}}>
+      {{#if address}}
+        One more
+      {{else}}
+        Generate
+      {{/if}}
+    </button>
+    <div class="clearfix"></div>
+  </div>
+{{/main-box}}

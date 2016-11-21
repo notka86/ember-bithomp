@@ -164,4 +164,40 @@ export default Ember.Service.extend({
     });
   },
 
+  destribution: function() {
+    let reqUrl = dataApi + 'network/xrp_distribution';
+    return this.get('ajax').request(reqUrl)
+    .then((data) => {
+      if (data.result) {
+        if (data.result !== 'success') {
+          if (data.message) {
+            console.log('destribution: ' + data.message);
+          } else {
+            console.log('destribution: ' + data.result);
+          }
+          return false;
+        } else {
+          let totalRows = data.rows.length;
+          let lastRow = data.rows[totalRows-1];
+          let prevDistribution = data.rows[totalRows-2].date;
+          let lastDistributed = lastRow.distributed - data.rows[totalRows-2].distributed;
+          return {
+            lastDistribution: lastRow.date,
+            prevDistribution: prevDistribution,
+            distributed: lastRow.distributed,
+            total: lastRow.total,
+            undistributed: lastRow.undistributed,
+            lastDistributed: lastDistributed
+          };
+        }
+      } else {
+        console.log('destribution: can not fetch data');
+        return false;
+      }
+    }, () => {
+      console.log('destribution: server error');
+      return false;
+    });
+  },
+
 });

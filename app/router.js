@@ -8,8 +8,9 @@ const Router = Ember.Router.extend(googlePageview, {
 });
 
 Router.map(function() {
-  this.route('exchange');
   this.route('activation');
+  this.route('create');
+  this.route('exchange');
 });
 
 export default Router;

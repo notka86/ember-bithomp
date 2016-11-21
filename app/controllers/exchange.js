@@ -3,7 +3,6 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
 
   vasia: function() {
-    console.log('Vasia: poehali!');
     var api = new ripple.RippleAPI({server:'wss://s1.ripple.com/'});
     var address = 'rsuUjfWxrACCAwGQDsNeZUhpzXf1n1NK5Z';
 

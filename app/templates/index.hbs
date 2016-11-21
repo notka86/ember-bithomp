@@ -1,9 +1,10 @@
 {{#main-box title="Choose a Ripple tool" fullFooter=true}}
   <center>
-    {{link-to "Ripple account activation" "activation" tagName="button"}}
+    {{!link-to "Ripple account activation" "activation" tagName="button"}}
     <button onclick="location.href='https://bithomp.com/explorer/';">Block explorer</button>
-    <button onclick="location.href='https://bithomp.com/create/';">New account</button>
-    {{link-to "Exchange" "exchange" tagName="button"}}
+    {{link-to "New account" "create" tagName="button"}}
+    <!--button onclick="location.href='https://bithomp.com/accounts/';">Activated accounts (Alpha)</button-->
+    {{!link-to "Exchange" "exchange" tagName="button"}}
     <div class="table">
       {{xrp-price currency='USD' issuer='rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B'}}
       {{xrp-price currency='JPY' issuer='r94s8px6kSw1uZ1MV98dhSRTvc6VMPoPcN'}}
@@ -64,8 +65,8 @@
           From date:
         </div>
         <div class="table-cell td2">
-          {{#if distributionFrom}}
-            {{distributionFrom}}
+          {{#if prevDistribution}}
+            {{formatDate prevDistribution}}
           {{else}}
             updating...
           {{/if}}
@@ -76,8 +77,8 @@
           To date:
         </div>
         <div class="table-cell td2 bold">
-          {{#if distributionTo}}
-            {{distributionTo}}
+          {{#if lastDistribution}}
+            {{formatDate lastDistribution}}
           {{else}}
             updating...
           {{/if}}
@@ -88,8 +89,8 @@
           Distributed:
         </div>
         <div class="table-cell td2 blue">
-          {{#if distributed}}
-            {{add-commas distributed}} XRP
+          {{#if lastDistributed}}
+            {{add-commas lastDistributed}} XRP
           {{else}}
             updating...
           {{/if}}
