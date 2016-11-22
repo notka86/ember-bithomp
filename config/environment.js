@@ -22,6 +22,7 @@ module.exports = function(environment) {
       'style-src': "'self' fonts.googleapis.com"
     }
     */
+    rippleWS: 'wss://s1.ripple.com/',
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import config from '../config/environment';
 
 export default Ember.Controller.extend({
   rippleData: Ember.inject.service(),
@@ -32,16 +33,33 @@ export default Ember.Controller.extend({
     });
 
     //TODO: show on the page. mirage: web-socket
-    var api = new ripple.RippleAPI({server:'wss://s1.ripple.com/'});
+    var api = new ripple.RippleAPI({server: config.rippleWS});
     api.connect().then(() => {
-
-      api.getServerInfo().then(info => {
-        console.log(info);
-      });
 
       api.on('ledger', ledger => {
         console.log(JSON.stringify(ledger, null, 2));
+        this.set('baseFeeXRP', ledger.baseFeeXRP);
+        this.set('ledgerHash', ledger.ledgerHash);
+        this.set('ledgerVersion', ledger.ledgerVersion);
+        this.set('ledgerTimestamp', ledger.ledgerTimestamp);
+        this.set('reserveBaseXRP', ledger.reserveBaseXRP);
+        this.set('reserveIncrementXRP', ledger.reserveIncrementXRP);
+        this.set('ledgerTransactions', ledger.transactionCount);
       });
+
+      /*
+        // ledger info
+        {
+          "baseFeeXRP": "0.00001",
+          "ledgerHash": "6066FF5FB3C5A7EDED0967BE9266F669D4BC0AC967AE097B25A1FFC2C43F1CD0",
+          "ledgerVersion": 25691584,
+          "ledgerTimestamp": "2016-11-21T08:20:10.000Z",
+          "reserveBaseXRP": "20",
+          "reserveIncrementXRP": "5",
+          "transactionCount": 52,
+          "validatedLedgerVersions": "25068843-25551326,25551448-25691584"
+        }
+      */
 
     });
 
