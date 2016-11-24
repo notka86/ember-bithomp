@@ -1,11 +1,13 @@
-<a href={{chartLink}} target="_blank" class="table-cell">
-  XRP/<b>{{currency}}</b>
-</a>
-<span class="table-cell td2">(<i>{{name}}</i>): </span>
-<i class="table-cell td3 {{color}}">
-  {{#if rate}}
-    {{rate}}
-  {{else}}
-    checking...
-  {{/if}}
-</i>
+{{#if show}}
+  <a href={{chartLink}} target="_blank" class="table-cell">
+    XRP/<b>{{currency}}</b>
+  </a>
+  <span class="table-cell td2">(<i>{{name}}</i>): </span>
+  <i class="table-cell td3 {{color}}">
+    {{#if rate}}
+      {{rate}}
+    {{else}}
+      checking...
+    {{/if}}
+  </i>
+{{/if}}

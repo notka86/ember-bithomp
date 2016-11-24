@@ -58,6 +58,85 @@
     {{/if}}
 
     <hr>
+    <h2>Last ledger info</h2>
+    <div class="table ledger">
+      <div class="table-row">
+        <div class="table-cell td1">
+          Timestamp:
+        </div>
+        <div class="table-cell td2">
+          {{#if ledgerTimestamp}}
+            {{ledgerTimestamp}} ({{moment-from-now ledgerTimestamp}})
+            {{!formatDate ledgerTimestamp}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          Version:
+        </div>
+        <div class="table-cell td2">
+          {{#if ledgerVersion}}
+            {{ledgerVersion}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          Transactions:
+        </div>
+        <div class="table-cell td2">
+          {{#if ledgerTransactions}}
+            {{add-commas ledgerTransactions}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <br />
+      <div class="table-row">
+        <div class="table-cell td1">
+          Base transaction fee:
+        </div>
+        <div class="table-cell td2 blue">
+          {{#if baseFeeXRP}}
+            {{baseFeeXRP}} XRP
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          Base account reserve:
+        </div>
+        <div class="table-cell td2 blue">
+          {{#if reserveBaseXRP}}
+            {{reserveBaseXRP}} XRP
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          Trust line reserve:
+        </div>
+        <div class="table-cell td2 blue">
+          {{#if reserveIncrementXRP}}
+            {{reserveIncrementXRP}} XRP
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <hr>
     <h2>XRP Distribution</h2>
     <div class="table distribution">
       <div class="table-row">
