@@ -1,9 +1,10 @@
 {{#main-box title="Choose a Ripple tool" fullFooter=true}}
   <center>
     {{!link-to "Ripple account activation" "activation" tagName="button"}}
+    <button onclick="location.href='https://bithomp.com/activation/';">Ripple account activation</button>
     <button onclick="location.href='https://bithomp.com/explorer/';">Block explorer</button>
     {{link-to "New account" "create" tagName="button"}}
-    <!--button onclick="location.href='https://bithomp.com/accounts/';">Activated accounts (Alpha)</button-->
+    <button onclick="location.href='https://bithomp.com/accounts/';">Activated accounts (Alpha)</button>
     {{!link-to "Exchange" "exchange" tagName="button"}}
     <div class="table">
       {{xrp-price currency='USD' issuer='rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B'}}
@@ -62,22 +63,9 @@
     <div class="table ledger">
       <div class="table-row">
         <div class="table-cell td1">
-          Timestamp:
+          Ledger Index:
         </div>
-        <div class="table-cell td2">
-          {{#if ledgerTimestamp}}
-            {{ledgerTimestamp}} ({{moment-from-now ledgerTimestamp}})
-            {{!formatDate ledgerTimestamp}}
-          {{else}}
-            updating...
-          {{/if}}
-        </div>
-      </div>
-      <div class="table-row">
-        <div class="table-cell td1">
-          Version:
-        </div>
-        <div class="table-cell td2">
+        <div class="table-cell td2 bold">
           {{#if ledgerVersion}}
             {{ledgerVersion}}
           {{else}}
@@ -87,9 +75,21 @@
       </div>
       <div class="table-row">
         <div class="table-cell td1">
-          Transactions:
+          Ledger closed:
         </div>
         <div class="table-cell td2">
+          {{#if ledgerTimestamp}}
+            {{moment-format ledgerTimestamp 'LTS'}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          Transactions included:
+        </div>
+        <div class="table-cell td2 bold blue">
           {{#if ledgerTransactions}}
             {{add-commas ledgerTransactions}}
           {{else}}
@@ -98,18 +98,6 @@
         </div>
       </div>
       <br />
-      <div class="table-row">
-        <div class="table-cell td1">
-          Base transaction fee:
-        </div>
-        <div class="table-cell td2 blue">
-          {{#if baseFeeXRP}}
-            {{baseFeeXRP}} XRP
-          {{else}}
-            updating...
-          {{/if}}
-        </div>
-      </div>
       <div class="table-row">
         <div class="table-cell td1">
           Base account reserve:
@@ -145,7 +133,7 @@
         </div>
         <div class="table-cell td2">
           {{#if prevDistribution}}
-            {{formatDate prevDistribution}}
+            {{moment-format prevDistribution 'LL'}}
           {{else}}
             updating...
           {{/if}}
@@ -157,7 +145,7 @@
         </div>
         <div class="table-cell td2 bold">
           {{#if lastDistribution}}
-            {{formatDate lastDistribution}}
+            {{moment-format lastDistribution 'LL'}}
           {{else}}
             updating...
           {{/if}}
