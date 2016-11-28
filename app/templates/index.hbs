@@ -22,7 +22,7 @@
             Activated accounts:
           </div>
           <div class="table-cell td2 blue bold">
-            {{add-commas activatedAccounts}}
+            {{add-commas activatedAccounts}} 
           </div>
         </div>
         {{#if explored}}
@@ -32,6 +32,9 @@
             </div>
             <div class="table-cell td2 blue bold">
               {{add-commas explored}}
+              {{#if exploredProcent}}
+                ({{exploredProcent}}%)
+              {{/if}}
             </div>
           </div>
         {{/if}}

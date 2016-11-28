@@ -3,8 +3,15 @@ import config from '../config/environment';
 
 export default Ember.Controller.extend({
   rippleData: Ember.inject.service(),
+  ajax: Ember.inject.service(),
 
   onStart: function() {
+
+    //make a model :)
+    this.get('ajax').request('/statistics')
+    .then((data) => {
+      this.set('explored', data.explored);
+    });
 
     this.set('update', true);
     this.send('updateInfo');
@@ -46,6 +53,15 @@ export default Ember.Controller.extend({
     });
 
   },
+
+  exploredProcent: function() {
+    let explored = this.get('explored');
+    let accounts = this.get('activatedAccounts');
+    if (explored > 0 && accounts > 0) {
+      return Math.round((explored/accounts) * 10000) / 100;
+    }
+    return false;
+  }.property('explored', 'activatedAccounts'),
 
   infoUpdate: function() {
     if (this.get('update')) {

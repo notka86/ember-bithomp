@@ -23,6 +23,8 @@ module.exports = function(environment) {
     }
     */
     rippleWS: 'wss://s1.ripple.com/',
+    apiServer: '',
+    apiNamespace: '/api',
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
@@ -49,6 +51,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
+    ENV.apiServer = 'https://bithomp.com';
     ENV.googleAnalytics = {
       webPropertyId: 'UA-72137603-1'
     };
