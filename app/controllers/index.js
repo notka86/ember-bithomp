@@ -7,12 +7,6 @@ export default Ember.Controller.extend({
 
   onStart: function() {
 
-    //make a model :)
-    this.get('ajax').request('/statistics')
-    .then((data) => {
-      this.set('explored', data.explored);
-    });
-
     this.set('update', true);
     this.send('updateInfo');
     if (config.environment !== 'development') {
@@ -75,6 +69,13 @@ export default Ember.Controller.extend({
   actions: {
 
     updateInfo: function() {
+
+      //make a model :)
+      this.get('ajax').request('/statistics')
+      .then((data) => {
+        this.set('explored', data.explored);
+      });
+      
       this.get('rippleData').activatedAccounts()
       .then(accounts => {
         this.set('activatedAccounts', accounts);
