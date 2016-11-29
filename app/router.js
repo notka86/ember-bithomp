@@ -8,7 +8,7 @@ const Router = Ember.Router.extend(googlePageview, {
 });
 
 Router.map(function() {
-  this.route('activation');
+  //this.route('activation');
   this.route('create');
   this.route('exchange');
 });
