@@ -1,0 +1,191 @@
+{{#main-box title="Statistics"}}
+  <center>
+    <div class="table statistics">
+      <div class="table-row">
+        <div class="table-cell td1">
+          Activated accounts:
+        </div>
+        <div class="table-cell td2 blue bold">
+          {{#if activatedAccounts}}
+            {{add-commas activatedAccounts}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+
+      <div class="table-row">
+        <div class="table-cell td1">
+          Active nodes:
+        </div>
+        <div class="table-cell td2 blue bold">
+          {{#if nodes}}
+            {{nodes}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+
+      <div class="table-row">
+        <div class="table-cell td1">
+          Known validators:
+        </div>
+        <div class="table-cell td2 blue bold">
+          {{#if validators}}
+            {{validators}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <h2>Last ledger info</h2>
+    <div class="table ledger">
+      <div class="table-row">
+        <div class="table-cell td1">
+          Ledger Index:
+        </div>
+        <div class="table-cell td2 bold">
+          {{#if ledgerVersion}}
+            {{ledgerVersion}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          Ledger closed:
+        </div>
+        <div class="table-cell td2">
+          {{#if ledgerTimestamp}}
+            {{moment-format ledgerTimestamp 'LTS'}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          Transactions included:
+        </div>
+        <div class="table-cell td2 bold blue">
+          {{#if ledgerTransactions}}
+            {{add-commas ledgerTransactions}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <br />
+      <div class="table-row">
+        <div class="table-cell td1">
+          Base account reserve:
+        </div>
+        <div class="table-cell td2 blue">
+          {{#if reserveBaseXRP}}
+            {{reserveBaseXRP}} XRP
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          Trust line reserve:
+        </div>
+        <div class="table-cell td2 blue">
+          {{#if reserveIncrementXRP}}
+            {{reserveIncrementXRP}} XRP
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <h2>XRP Distribution</h2>
+    <div class="table distribution">
+      <div class="table-row">
+        <div class="table-cell td1">
+          From date:
+        </div>
+        <div class="table-cell td2">
+          {{#if prevDistribution}}
+            {{moment-format prevDistribution 'LL'}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          To date:
+        </div>
+        <div class="table-cell td2 bold">
+          {{#if lastDistribution}}
+            {{moment-format lastDistribution 'LL'}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          Distributed:
+        </div>
+        <div class="table-cell td2 blue">
+          {{#if lastDistributed}}
+            {{add-commas lastDistributed}} XRP
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <br />
+      <div class="table-row">
+        <div class="table-cell td1">
+          Held by Ripple:
+        </div>
+        <div class="table-cell td2 blue">
+          {{#if heldByRipple}}
+            {{add-commas heldByRipple}} XRP
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          Held by others:
+        </div>
+        <div class="table-cell td2 blue">
+          {{#if heldByOthers}}
+            {{add-commas heldByOthers}} XRP*
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          Total XRP:
+        </div>
+        <div class="table-cell td2 blue">
+          {{#if totalXRP}}
+            {{add-commas totalXRP}} XRP
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    <p class="smallsize">
+    *Total includes business development agreements that are still pending.
+    </p>
+  </center>
+{{/main-box}}

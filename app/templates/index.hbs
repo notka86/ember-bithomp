@@ -1,13 +1,10 @@
 {{#main-box title="Choose a Ripple tool" fullFooter=true}}
   <center>
-    {{!link-to "Ripple account activation" "activation" tagName="button"}}
-    <!--button onclick="location.href='https://bithomp.com/activation/';">Ripple account activation</button-->
-    <a href='/activation/' class="button">Ripple account activation</a>
-    <a href='/explorer/' class="button">Block explorer</a>
-    <!--button onclick="location.href='https://bithomp.com/explorer/';">Block explorer</button-->
-    {{link-to "New account" "create" tagName="button"}}
+    <a href='/explorer/' class="button">Ripple explorer</a>
+    <a href='/activation/' class="button">Account activation</a>
+    {{link-to "Ripple info" "statistics" tagName="button"}}
+    {{link-to "Account generator" "create" tagName="button"}}
     <a href='/accounts/' class="button">Activated accounts (Alpha)</a>
-    <!--button onclick="location.href='https://bithomp.com/accounts/';">Activated accounts (Alpha)</button-->
     {{!link-to "Exchange" "exchange" tagName="button"}}
     <div class="table">
       {{xrp-price currency='USD' issuer='rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B'}}
@@ -17,25 +14,10 @@
       {{xrp-price currency='EUR' issuer='rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq'}}
     </div>
 
-    <hr>
-    <h2>Download Desktop Wallet</h2>
-    <p class="smallsize"><a href="https://github.com/karl-os/XRP-CHAT-WALLET/releases" target="_blank">XRP CHAT WALLET 1.4.0-rc3</a>, provided by <a href="https://github.com/karl-os/" target="_blank"><i>karl-os</i></a></p>
-    <a href='https://github.com/karl-os/XRP-CHAT-WALLET/releases/download/1.4.0-rc3/xrp-chat-wallet-WIN32.zip' class="button"><i class="fa fa-windows"></i> Windows 7/10</a>
-    <a href='https://github.com/karl-os/XRP-CHAT-WALLET/releases/download/1.4.0-rc3/xrp-chat-wallet-OSX32.zip' class="button"><i class="fa fa-apple"></i> Mac OS X</a>
-    <a href='https://github.com/karl-os/XRP-CHAT-WALLET/releases/download/1.4.0-rc3/xrp-chat-wallet-LINUX32.zip' class="button"><i class="fa fa-linux"></i> Linux</a>
-
-    {{#if activatedAccounts}}
+    {{#if exploredProcent}}
       <hr>
-      <h2>Statistics</h2>
+      <h2>Bithomp statistics</h2>
       <div class="table statistics">
-        <div class="table-row">
-          <div class="table-cell td1">
-            Activated accounts:
-          </div>
-          <div class="table-cell td2 blue bold">
-            {{add-commas activatedAccounts}} 
-          </div>
-        </div>
         {{#if explored}}
           <div class="table-row">
             <div class="table-cell td1">
@@ -49,174 +31,15 @@
             </div>
           </div>
         {{/if}}
-        {{#if nodes}}
-          <div class="table-row">
-            <div class="table-cell td1">
-              Active nodes:
-            </div>
-            <div class="table-cell td2 blue bold">
-              {{nodes}}
-            </div>
-          </div>
-        {{/if}}
-        {{#if validators}}
-          <div class="table-row">
-            <div class="table-cell td1">
-              Known validators:
-            </div>
-            <div class="table-cell td2 blue bold">
-              {{validators}}
-            </div>
-          </div>
-        {{/if}}
       </div>
     {{/if}}
 
     <hr>
-    <h2>Last ledger info</h2>
-    <div class="table ledger">
-      <div class="table-row">
-        <div class="table-cell td1">
-          Ledger Index:
-        </div>
-        <div class="table-cell td2 bold">
-          {{#if ledgerVersion}}
-            {{ledgerVersion}}
-          {{else}}
-            updating...
-          {{/if}}
-        </div>
-      </div>
-      <div class="table-row">
-        <div class="table-cell td1">
-          Ledger closed:
-        </div>
-        <div class="table-cell td2">
-          {{#if ledgerTimestamp}}
-            {{moment-format ledgerTimestamp 'LTS'}}
-          {{else}}
-            updating...
-          {{/if}}
-        </div>
-      </div>
-      <div class="table-row">
-        <div class="table-cell td1">
-          Transactions included:
-        </div>
-        <div class="table-cell td2 bold blue">
-          {{#if ledgerTransactions}}
-            {{add-commas ledgerTransactions}}
-          {{else}}
-            updating...
-          {{/if}}
-        </div>
-      </div>
-      <br />
-      <div class="table-row">
-        <div class="table-cell td1">
-          Base account reserve:
-        </div>
-        <div class="table-cell td2 blue">
-          {{#if reserveBaseXRP}}
-            {{reserveBaseXRP}} XRP
-          {{else}}
-            updating...
-          {{/if}}
-        </div>
-      </div>
-      <div class="table-row">
-        <div class="table-cell td1">
-          Trust line reserve:
-        </div>
-        <div class="table-cell td2 blue">
-          {{#if reserveIncrementXRP}}
-            {{reserveIncrementXRP}} XRP
-          {{else}}
-            updating...
-          {{/if}}
-        </div>
-      </div>
-    </div>
+    <h2>Download Desktop Wallet</h2>
+    <p class="smallsize"><a href="https://github.com/karl-os/XRP-CHAT-WALLET/releases" target="_blank">XRP CHAT WALLET 1.4.0-rc3</a>, provided by <a href="https://github.com/karl-os/" target="_blank"><i>karl-os</i></a></p>
+    <a href='https://github.com/karl-os/XRP-CHAT-WALLET/releases/download/1.4.0-rc3/xrp-chat-wallet-WIN32.zip' class="button"><i class="fa fa-windows"></i> Windows 7/10</a>
+    <a href='https://github.com/karl-os/XRP-CHAT-WALLET/releases/download/1.4.0-rc3/xrp-chat-wallet-OSX32.zip' class="button"><i class="fa fa-apple"></i> Mac OS X</a>
+    <a href='https://github.com/karl-os/XRP-CHAT-WALLET/releases/download/1.4.0-rc3/xrp-chat-wallet-LINUX32.zip' class="button"><i class="fa fa-linux"></i> Linux</a>
 
-    <hr>
-    <h2>XRP Distribution</h2>
-    <div class="table distribution">
-      <div class="table-row">
-        <div class="table-cell td1">
-          From date:
-        </div>
-        <div class="table-cell td2">
-          {{#if prevDistribution}}
-            {{moment-format prevDistribution 'LL'}}
-          {{else}}
-            updating...
-          {{/if}}
-        </div>
-      </div>
-      <div class="table-row">
-        <div class="table-cell td1">
-          To date:
-        </div>
-        <div class="table-cell td2 bold">
-          {{#if lastDistribution}}
-            {{moment-format lastDistribution 'LL'}}
-          {{else}}
-            updating...
-          {{/if}}
-        </div>
-      </div>
-      <div class="table-row">
-        <div class="table-cell td1">
-          Distributed:
-        </div>
-        <div class="table-cell td2 blue">
-          {{#if lastDistributed}}
-            {{add-commas lastDistributed}} XRP
-          {{else}}
-            updating...
-          {{/if}}
-        </div>
-      </div>
-      <br />
-      <div class="table-row">
-        <div class="table-cell td1">
-          Held by Ripple:
-        </div>
-        <div class="table-cell td2 blue">
-          {{#if heldByRipple}}
-            {{add-commas heldByRipple}} XRP
-          {{else}}
-            updating...
-          {{/if}}
-        </div>
-      </div>
-      <div class="table-row">
-        <div class="table-cell td1">
-          Held by others:
-        </div>
-        <div class="table-cell td2 blue">
-          {{#if heldByOthers}}
-            {{add-commas heldByOthers}} XRP*
-          {{else}}
-            updating...
-          {{/if}}
-        </div>
-      </div>
-      <div class="table-row">
-        <div class="table-cell td1">
-          Total XRP:
-        </div>
-        <div class="table-cell td2 blue">
-          {{#if totalXRP}}
-            {{add-commas totalXRP}} XRP
-          {{else}}
-            updating...
-          {{/if}}
-        </div>
-      </div>
-    </div>
-    <p class="smallsize">
-    *Total includes business development agreements that are still pending.
-    </p>
   </center>
 {{/main-box}}
