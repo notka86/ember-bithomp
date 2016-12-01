@@ -44,7 +44,7 @@ export default function() {
   });
 
   this.get(rippleApi + 'accounts', function() {
-    return {"result":"success","count":228023};
+    return {"result":"success","count":228023, "accounts":[{"date":"2013-01-07T00:00:00Z","count":46},{"date":"2013-01-14T00:00:00Z","count":40}]};
   });
 
   this.get(rippleApi + 'network/topology/nodes', function() {

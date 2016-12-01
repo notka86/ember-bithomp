@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import moment from 'moment';
 var dataApi = 'https://data.ripple.com/v2/';
 
 export default Ember.Service.extend({
@@ -110,6 +111,49 @@ export default Ember.Service.extend({
       }
     }, () => {
       console.log('activatedAccounts: server error');
+      return false;
+    });
+  },
+
+  countAccounts: function() {
+    let reqUrl = dataApi + 'accounts?interval=week&limit=1200';
+    return this.get('ajax').request(reqUrl)
+    .then((data) => {
+      if (data.result) {
+        if (data.result !== 'success') {
+          if (data.message) {
+            console.log('countAccounts: ' + data.message);
+          } else {
+            console.log('countAccounts: ' + data.result);
+          }
+          return false;
+        } else {
+
+          let obj = data.accounts;
+          let respond = {
+            dates: [],
+            counts: []
+          };
+
+          for (var i = 0, len = obj.length; i < len; i++){
+            respond.dates[i] = moment(obj[i]["date"]).format('LL');
+            if (i > 0){
+              respond.counts[i] = obj[i]["count"] + respond.counts[i-1];
+            } else{
+              respond.counts[i] = obj[i]["count"];
+            }
+          }
+
+          return respond;
+
+          // "accounts":[{"date":"2013-01-07T00:00:00Z","count":46},{"date":"2013-01-14T00:00:00Z","count":40}]
+        }
+      } else {
+        console.log('countAccounts: can not fetch data');
+        return false;
+      }
+    }, () => {
+      console.log('countAccounts: server error');
       return false;
     });
   },

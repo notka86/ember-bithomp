@@ -11,6 +11,7 @@ Router.map(function() {
   this.route('create');
   this.route('exchange');
   this.route('statistics');
+  this.route('chart');
 });
 
 export default Router;
