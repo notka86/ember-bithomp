@@ -132,11 +132,13 @@ export default Ember.Service.extend({
           let obj = data.accounts;
           let respond = {
             dates: [],
-            counts: []
+            counts: [],
+            amounts: []
           };
 
           for (var i = 0, len = obj.length; i < len; i++){
             respond.dates[i] = moment(obj[i]["date"]).format('LL');
+            respond.amounts[i] = obj[i]["count"];
             if (i > 0){
               respond.counts[i] = obj[i]["count"] + respond.counts[i-1];
             } else{
