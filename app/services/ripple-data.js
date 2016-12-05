@@ -115,47 +115,57 @@ export default Ember.Service.extend({
     });
   },
 
-  countAccounts: function() {
-    let reqUrl = dataApi + 'accounts?interval=week&limit=1200';
+  statistics: function() {
+    let reqUrl = dataApi + 'stats/?interval=week&family=metric&metrics=accounts_created,payments_count,exchanges_count,tx_per_ledger,ledger_count,ledger_interval&limit=1000';
+
     return this.get('ajax').request(reqUrl)
     .then((data) => {
       if (data.result) {
         if (data.result !== 'success') {
           if (data.message) {
-            console.log('countAccounts: ' + data.message);
+            console.log('statistics: ' + data.message);
           } else {
-            console.log('countAccounts: ' + data.result);
+            console.log('statistics: ' + data.result);
           }
           return false;
         } else {
-
-          let obj = data.accounts;
+          let obj = data.stats;
           let respond = {
-            dates: [],
-            counts: [],
-            amounts: []
+            date: [],
+            accountsCreatedAll: [],
+            accountsCreated: [],
+            paymentsCount: [],
+            exchangesCount: [],
+            txPerLedger: [],
+            ledgerCount: [],
+            ledgerInerval: []
           };
 
           for (var i = 0, len = obj.length; i < len; i++){
-            respond.dates[i] = moment(obj[i]["date"]).format('LL');
-            respond.amounts[i] = obj[i]["count"];
+            respond.date[i] = moment(obj[i]["date"]).format('LL');
+            respond.accountsCreated[i] = obj[i]["accounts_created"];
+            respond.paymentsCount[i] = obj[i]["payments_count"];
+            respond.exchangesCount[i] = obj[i]["exchanges_count"];
+            respond.txPerLedger[i] = obj[i]["tx_per_ledger"];
+            respond.ledgerCount[i] = obj[i]["ledger_count"];
+            respond.ledgerInerval[i] = obj[i]["ledger_interval"];
             if (i > 0){
-              respond.counts[i] = obj[i]["count"] + respond.counts[i-1];
+              respond.accountsCreatedAll[i] = obj[i]["accounts_created"] + respond.accountsCreatedAll[i-1];
             } else{
-              respond.counts[i] = obj[i]["count"];
+              respond.accountsCreatedAll[i] = obj[i]["accounts_created"];
             }
           }
 
           return respond;
 
-          // "accounts":[{"date":"2013-01-07T00:00:00Z","count":46},{"date":"2013-01-14T00:00:00Z","count":40}]
+          // "stats":[{"accounts_created":46,"ledger_count":28313,"ledger_interval":21.361212164023595,"payments_count":127,"tx_per_ledger":1.0030487804878048,"date":"2013-01-07T00:00:00Z"},
         }
       } else {
-        console.log('countAccounts: can not fetch data');
+        console.log('statistics: can not fetch data');
         return false;
       }
     }, () => {
-      console.log('countAccounts: server error');
+      console.log('statistics: server error');
       return false;
     });
   },
