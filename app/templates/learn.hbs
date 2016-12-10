@@ -1,0 +1,20 @@
+{{#main-box title="Learn more about Ripple"}}
+  <div class="video-list">
+    {{#click-outside action=(action "stopVideo") except-selector=".video"}}
+      <div class="popup" id="youtube-video" data-popup-id="popup-video">
+        <iframe width="853" height="480" src={{videoLink}} frameborder="0" allowfullscreen="true"></iframe>
+      </div>
+    {{/click-outside}}
+
+    <ul>
+      {{#each model as |video|}}
+        <li>
+          <div class="video" {{action "openVideo" video.youtubeId}}>
+            <img src="{{video.youtubeImg}}" />
+          </div>
+          <p>{{video.title}}</p>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+{{/main-box}}

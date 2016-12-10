@@ -1,10 +1,33 @@
 {{#main-box title="Choose a Ripple tool" fullFooter=true}}
   <center>
-    <a href='/explorer/' class="button">Ripple explorer</a>
-    <a href='/activation/' class="button">Account activation</a>
-    {{link-to "Ripple info" "statistics" tagName="button"}}
-    {{link-to "Account generator" "create" tagName="button"}}
-    <a href='/accounts/' class="button">Activated accounts (Alpha)</a>
+
+    <div class="table buttons">
+      <div class="table-row">
+        <div class="table-cell td1">
+          <a href='/explorer/' class="button">Ripple explorer</a>
+        </div>
+        <div class="table-cell td2">
+          <a href='/activation/' class="button">Account activation</a>
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          {{link-to "Ripple info" "statistics" class="button"}}
+        </div>
+        <div class="table-cell td2">
+          {{link-to "Learn more" "learn" class="button"}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
+          {{link-to "Account generator" "create" class="button"}}
+        </div>
+        <div class="table-cell td2">
+          <a href='/accounts/' class="button">Activated accounts</a>
+        </div>
+      </div>
+    </div>
+
     {{!link-to "Exchange" "exchange" tagName="button"}}
     <div class="table">
       {{xrp-price currency='USD' issuer='rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B'}}
@@ -14,25 +37,25 @@
       {{xrp-price currency='EUR' issuer='rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq'}}
     </div>
 
-    {{#if exploredProcent}}
-      <hr>
-      <h2>Bithomp statistics</h2>
-      <div class="table statistics">
-        {{#if explored}}
-          <div class="table-row">
-            <div class="table-cell td1">
-              Explored at Bithomp:
-            </div>
-            <div class="table-cell td2 blue bold">
-              {{add-commas explored}}
-              {{#if exploredProcent}}
-                ({{exploredProcent}}%)
-              {{/if}}
-            </div>
-          </div>
-        {{/if}}
+    <hr>
+    <h2>Bithomp statistics</h2>
+    <div class="table statistics">
+      <div class="table-row">
+        <div class="table-cell td1">
+          Explored at Bithomp:
+        </div>
+        <div class="table-cell td2 blue bold">
+          {{#if explored}}
+            {{add-commas explored}}
+            {{#if exploredProcent}}
+              ({{exploredProcent}}%)
+            {{/if}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
       </div>
-    {{/if}}
+    </div>
 
     <hr>
     <h2>Download Desktop Wallet</h2>

@@ -12,6 +12,7 @@ Router.map(function() {
   this.route('exchange');
   this.route('statistics');
   this.route('chart');
+  this.route('learn');
 });
 
 export default Router;
