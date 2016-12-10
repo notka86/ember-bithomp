@@ -115,6 +115,33 @@ export default Ember.Service.extend({
     });
   },
 
+  // need to be implemented in the backend! and return as endpoint
+  bistampUSDprice: function(date) {
+    let reqUrl = dataApi + 'exchange_rates/USD+rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B/XRP?date=' + date;
+    return this.get('ajax').request(reqUrl)
+    .then((data) => {
+      if (data.result) {
+        if (data.result !== 'success') {
+          if (data.message) {
+            console.log('bistampUSDprice: ' + data.message);
+          } else {
+            console.log('bistampUSDprice: ' + data.result);
+          }
+          return false;
+        } else {
+          return data.rate;
+        }
+      } else {
+        console.log('bistampUSDprice: can not fetch data');
+        return false;
+      }
+    }, () => {
+      console.log('bistampUSDprice: server error');
+      return false;
+    });
+  },
+
+  // need to be implemented in the backend! and return as endpoint
   statistics: function() {
     let reqUrl = dataApi + 'stats/?interval=week&family=metric&metrics=accounts_created,payments_count,exchanges_count,tx_per_ledger,ledger_count,ledger_interval&limit=1000';
 
@@ -132,23 +159,25 @@ export default Ember.Service.extend({
           let obj = data.stats;
           let respond = {
             date: [],
+            niceDate: [],
             accountsCreatedAll: [],
             accountsCreated: [],
             paymentsCount: [],
             exchangesCount: [],
             txPerLedger: [],
             ledgerCount: [],
-            ledgerInerval: []
+            //ledgerInerval: []
           };
 
           for (var i = 0, len = obj.length; i < len; i++){
-            respond.date[i] = moment(obj[i]["date"]).format('LL');
+            respond.date[i] = obj[i]["date"];
+            respond.niceDate[i] = moment(obj[i]["date"]).format('LL');
             respond.accountsCreated[i] = obj[i]["accounts_created"];
             respond.paymentsCount[i] = obj[i]["payments_count"];
             respond.exchangesCount[i] = obj[i]["exchanges_count"];
             respond.txPerLedger[i] = obj[i]["tx_per_ledger"];
             respond.ledgerCount[i] = obj[i]["ledger_count"];
-            respond.ledgerInerval[i] = obj[i]["ledger_interval"];
+            //respond.ledgerInterval[i] = obj[i]["ledger_interval"];
             if (i > 0){
               respond.accountsCreatedAll[i] = obj[i]["accounts_created"] + respond.accountsCreatedAll[i-1];
             } else{

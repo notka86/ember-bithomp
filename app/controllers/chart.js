@@ -1,12 +1,14 @@
 import Ember from 'ember';
-import config from '../config/environment';
+//import config from '../config/environment';
 
 export default Ember.Controller.extend({
   rippleData: Ember.inject.service(),
   ajax: Ember.inject.service(),
 
-  onStart: function() {
+  //!!! need to get all the data from the DB, not from ripple api!!!
 
+  onStart: function() {
+    /*
     this.set('update', true);
     this.send('updateInfo');
     if (config.environment !== 'development') {
@@ -16,6 +18,7 @@ export default Ember.Controller.extend({
     this.get('rippleData').statistics()
     .then(stat => {
       this.set('statDate', stat.date);
+      this.set('statNiceDate', stat.niceDate);
       this.set('statAccountsCreatedAll', stat.accountsCreatedAll);
       this.set('statAccountsCreated', stat.accountsCreated);
       this.set('statPaymentsCount', stat.paymentsCount);
@@ -23,8 +26,9 @@ export default Ember.Controller.extend({
       this.set('statLedgerCount', stat.ledgerCount);
       this.set('statLedgerInerval', stat.ledgerInerval);
       this.set('statTxPerLedger', stat.txPerLedger);
+      this.dataSetUpdate(); //CHECK
     });
-
+    */
   },
 
   infoUpdate: function() {
@@ -35,213 +39,268 @@ export default Ember.Controller.extend({
       }, 60000);
     }
   },
-
-  dataSet: function() {
+/*
+  getBitstampUSD: function() {
+    let dates = this.get('statDate');
+    if (dates) {
+      var that = this;
+      var itemsProcessed = 0;
+      var bitstampPrice = [];
+      dates.forEach(function(date, index, array) {
+        that.get('rippleData').bistampUSDprice(date)
+        .then(price => {
+          itemsProcessed++;
+          bitstampPrice[index] = price;
+          if (itemsProcessed === array.length) {
+            //Ember.run.later(that, function() {
+              that.set('statBitstampUSD', bitstampPrice); //delay 600 for last one!
+            //}, 300);
+          }
+        });
+      });
+    }
+  }.observes('statDate'),
+*/
+  dataSet: {
+    labels: ['January 7, 2013','January 14, 2013','January 21, 2013','January 28, 2013','February 4, 2013','February 11, 2013','February 18, 2013','February 25, 2013','March 4, 2013','March 11, 2013','March 18, 2013','March 25, 2013','April 1, 2013','April 8, 2013','April 15, 2013','April 22, 2013','April 29, 2013','May 6, 2013','May 13, 2013','May 20, 2013','May 27, 2013','June 3, 2013','June 10, 2013','June 17, 2013','June 24, 2013','July 1, 2013','July 8, 2013','July 15, 2013','July 22, 2013','July 29, 2013','August 5, 2013','August 12, 2013','August 19, 2013','August 26, 2013','September 2, 2013','September 9, 2013','September 16, 2013','September 23, 2013','September 30, 2013','October 7, 2013','October 14, 2013','October 21, 2013','October 28, 2013','November 4, 2013','November 11, 2013','November 18, 2013','November 25, 2013','December 2, 2013','December 9, 2013','December 16, 2013','December 23, 2013','December 30, 2013','January 6, 2014','January 13, 2014','January 20, 2014','January 27, 2014','February 3, 2014','February 10, 2014','February 17, 2014','February 24, 2014','March 3, 2014','March 10, 2014','March 17, 2014','March 24, 2014','March 31, 2014','April 7, 2014','April 14, 2014','April 21, 2014','April 28, 2014','May 5, 2014','May 12, 2014','May 19, 2014','May 26, 2014','June 2, 2014','June 9, 2014','June 16, 2014','June 23, 2014','June 30, 2014','July 7, 2014','July 14, 2014','July 21, 2014','July 28, 2014','August 4, 2014','August 11, 2014','August 18, 2014','August 25, 2014','September 1, 2014','September 8, 2014','September 15, 2014','September 22, 2014','September 29, 2014','October 6, 2014','October 13, 2014','October 20, 2014','October 27, 2014','November 3, 2014','November 10, 2014','November 17, 2014','November 24, 2014','December 1, 2014','December 8, 2014','December 15, 2014','December 22, 2014','December 29, 2014','January 5, 2015','January 12, 2015','January 19, 2015','January 26, 2015','February 2, 2015','February 9, 2015','February 16, 2015','February 23, 2015','March 2, 2015','March 9, 2015','March 16, 2015','March 23, 2015','March 30, 2015','April 6, 2015','April 13, 2015','April 20, 2015','April 27, 2015','May 4, 2015','May 11, 2015','May 18, 2015','May 25, 2015','June 1, 2015','June 8, 2015','June 15, 2015','June 22, 2015','June 29, 2015','July 6, 2015','July 13, 2015','July 20, 2015','July 27, 2015','August 3, 2015','August 10, 2015','August 17, 2015','August 24, 2015','August 31, 2015','September 7, 2015','September 14, 2015','September 21, 2015','September 28, 2015','October 5, 2015','October 12, 2015','October 19, 2015','October 26, 2015','November 2, 2015','November 9, 2015','November 16, 2015','November 23, 2015','November 30, 2015','December 7, 2015','December 14, 2015','December 21, 2015','December 28, 2015','January 4, 2016','January 11, 2016','January 18, 2016','January 25, 2016','February 1, 2016','February 8, 2016','February 15, 2016','February 22, 2016','February 29, 2016','March 7, 2016','March 14, 2016','March 21, 2016','March 28, 2016','April 4, 2016','April 11, 2016','April 18, 2016','April 25, 2016','May 2, 2016','May 9, 2016','May 16, 2016','May 23, 2016','May 30, 2016','June 6, 2016','June 13, 2016','June 20, 2016','June 27, 2016','July 4, 2016','July 11, 2016','July 18, 2016','July 25, 2016','August 1, 2016','August 8, 2016','August 15, 2016','August 22, 2016','August 29, 2016','September 5, 2016','September 12, 2016','September 19, 2016','September 26, 2016','October 3, 2016','October 10, 2016','October 17, 2016','October 24, 2016','October 31, 2016','November 7, 2016','November 14, 2016','November 21, 2016','November 28, 2016','December 5, 2016'],
+    datasets: [
+      {
+        type: 'line',
+        label: "Accounts created (weekly)",
+        yAxisID: 'accounts',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: "rgba(255, 99, 132, 0.4)",
+        borderColor: "rgba(255, 99, 132, 1)",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: "rgba(255, 99, 132, 1)",
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(255, 99, 132, 1)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: [46,40,61,27,94,71,515,705,598,231,222,255,269,564,870,977,1150,1447,863,1074,6008,2954,1165,638,970,561,345,440,350,321,280,132,133,120,117,192,320,319,165,546,801,4395,2130,2347,1857,2543,3894,3630,2471,1964,1832,2038,2007,1687,1365,1363,1268,1305,1435,1392,1244,1222,1051,1173,940,930,919,1549,1398,3283,2462,1894,2137,1781,1963,1641,1271,1399,2135,1963,1523,1434,1213,1185,1467,1027,1031,873,934,951,1102,1276,1243,1390,1350,1225,1389,1749,2560,2297,2257,3358,2140,1353,2145,1565,1638,1690,2017,1827,1551,1381,1357,967,790,796,814,709,784,645,603,755,345,495,660,2202,726,336,267,213,215,605,172,217,171,153,204,200,170,394,1366,200,229,329,392,369,940,432,416,379,355,614,1565,1166,616,438,479,524,494,663,675,435,701,675,857,1055,921,1210,1343,687,813,1174,1981,1817,1374,631,668,454,719,836,962,1139,740,594,903,783,961,801,647,440,500,516,1005,816,1208,8475,3876,2353,1808,1423,1990,1398,1315,1557,314],
+        spanGaps: false
+      },
+      {
+        type: 'line',
+        label: "Payments (weekly)",
+        yAxisID: 'payments',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: "rgba(255, 206, 86, 0.4)",
+        borderColor: "rgba(255, 206, 86, 1)",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: "rgba(255, 206, 86, 1)",
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(255, 206, 86, 1)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: [127,199,152,104,185,355,1371,1601,1729,1029,1170,2114,1613,2817,5649,7392,6819,39043,36208,19853,31388,97602,48434,33155,33079,29017,35361,23872,19247,22144,19626,13722,15617,18766,31496,63866,37945,27723,25849,28185,15850,23787,26127,28068,21273,26689,36670,49246,62482,62174,62461,77106,92313,84174,101496,88589,80288,89698,109447,95954,99213,89051,83476,68510,72790,86251,54965,84438,67232,73980,57466,83050,36119,116103,39521,90333,14588,18730,24329,26785,15572,80827,167024,105338,93943,45070,59354,95529,68518,67544,48058,63099,57557,134080,147138,99756,121217,199125,285198,267608,261439,333963,279457,240447,323692,312282,320795,292256,284513,281716,262025,272918,219224,306016,295529,281896,237402,267853,264196,215728,231063,198901,240599,187211,161379,157177,180459,144748,110441,61254,141939,100146,170486,181648,175822,173262,170205,188921,180737,144582,114249,99185,82689,90918,95153,133066,113210,107346,102327,104355,81240,66837,229696,96505,65930,87464,107456,73594,115982,198817,232814,168061,177332,161303,163202,201334,176031,283987,255806,184831,58727,179956,238461,223581,209388,170006,134334,155226,193285,219125,141570,102441,102685,322927,132047,180106,173084,116049,149889,100108,180920,201597,181113,148002,211311,230330,209248,201727,178636,53761,207527,191370,208788,99033,25961],
+        spanGaps: false
+      },
+      {
+        type: 'line',
+        label: "Exchanges (weekly)",
+        yAxisID: 'exchanges',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: "rgba(75, 192, 192, 0.4)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: "rgba(75, 192, 192, 1)",
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(75, 192, 192, 1)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: [0,0,1,25,3,28,112,603,533,415,557,497,760,1438,2550,2597,3870,4752,6516,4896,5567,6484,4673,4612,2631,4046,33998,4030,2771,3468,3978,3888,1637,1651,873,964,2896,2851,2866,2508,4221,6561,6987,8727,6954,13264,44326,53582,33146,61815,40197,32067,47249,38179,27887,27163,25209,36038,40867,53742,48923,28788,38151,41820,36726,69702,82518,67791,57112,81664,93950,202261,111571,68390,87304,57793,50539,109431,140338,192674,124524,115624,117075,122804,86047,93175,75837,85556,155105,140396,107085,110119,78024,91134,90161,69773,143031,307179,604985,408615,283212,602619,245261,207495,274327,359854,164110,222846,215038,186927,149608,201939,509787,325115,285098,165446,202422,173154,115018,119631,139253,246085,169537,164571,174503,122872,70502,203650,135000,126828,158838,94627,77320,131280,147441,74839,83645,148419,108464,50551,125451,123450,177411,165430,93360,96952,188080,301969,97637,56725,44767,96580,285673,167759,98211,64534,52294,89564,87598,210253,141907,86133,83467,80264,66297,185287,105899,198625,239480,134909,136587,109646,148531,118534,119392,91930,108291,146005,135370,233743,206826,152131,96985,279326,81675,119364,158380,106962,114628,78943,93273,98360,204560,128067,219076,140466,185893,158952,173862,143286,195212,152310,140907,104369,81704],
+        spanGaps: false
+      },
+      {
+        type: 'line',
+        label: "XRP/USD (Bitstamp)",
+        yAxisID: 'usd',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: "rgba(54, 162, 235, 0.4)",
+        borderColor: "rgba(54, 162, 235, 1)",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: "rgba(54, 162, 235, 1)",
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(54, 162, 235, 1)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: [0,0,0,0,0,0,0,0,0.0009435602812828683,0.0009978703451094674,0.000626016063196572,0.001023551269882701,0.001051289812226919,0.0012497980013980242,0.0029778553277479687,0.0027091576001772658,0.004313864345876671,0.013525596623534981,0.011629087464343765,0.018595829992979887,0.015585097037723462,0.018082945894162254,0.018006565842142417,0.016410861811156537,0.014088472848145676,0.014234086035598652,0.01097640922687936,0.010308349111292484,0.0069478228232922705,0.0061184944343115385,0.005376720745544701,0.0039288057958686015,0.004839174862615825,0.005739320301479609,0.005370335085279847,0.005885195490598429,0.006429134574837794,0.010049169581847019,0.011161217537040732,0.010494809487618424,0.007999393965913143,0.006610044584089716,0.00583572549447561,0.006636521374410303,0.008101763988971554,0.008543548044941455,0.015407489105903715,0.052420487163506994,0.03670260022507502,0.025903226065483873,0.022656063689276255,0.027561865777351834,0.02590533042067614,0.021865333814224907,0.01907886623303202,0.019581552024022647,0.0210299024603682,0.017416825904351705,0.015151224982600332,0.015121243796093899,0.014196476451580488,0.01490611732297879,0.014336793618830794,0.012482914167269977,0.009285037273853632,0.008221941104920354,0.00613997698491027,0.006095760124524187,0.0049433932044162295,0.00506114316445547,0.0058967531592592146,0.005784846963609032,0.003820868513980176,0.004233138225170443,0.004104426628222965,0.004188548341292972,0.004102173491500563,0.003880224304902438,0.0029461250942391763,0.004274193258844973,0.0052947906460957695,0.006117826649424184,0.005158403214221677,0.004979816554513728,0.005089965392816298,0.005069706435607022,0.004915893003425788,0.004685143592389134,0.005095047084349116,0.0045508487492197,0.004693097912524128,0.004689309340700926,0.004730919715866639,0.005001375128091469,0.0048288193208400835,0.004702495670882485,0.004853294139424075,0.005219401999542467,0.008473522107588649,0.011374628132126132,0.014648946636729297,0.01731105241625679,0.024850935391693238,0.02379567132942846,0.01916616561518207,0.018405903362197162,0.0156517701518145,0.016402630247053792,0.013616184327406926,0.014102714640002683,0.013663305438875482,0.01314334401738244,0.011620744139231668,0.009911671151367474,0.010865678965583016,0.009862413415407023,0.008334980881220854,0.00867269667703025,0.00821466226853649,0.00778473707323001,0.007638218529126589,0.007950897167310013,0.007266866742886409,0.0059033326910507364,0.006745223791348644,0.0078408305133133,0.007846587291635836,0.00822218379721661,0.010117963515392528,0.011610682124788267,0.00980732336373146,0.00847812918210216,0.007930948090120632,0.008374409112161058,0.008227882054298098,0.008561126356574678,0.00817689635922872,0.007455288584156453,0.007761852095890231,0.00781782344915491,0.00739418714850345,0.007139127968369094,0.006176229188500923,0.004973090112094445,0.005163621481140415,0.004924848049969478,0.00456436158342998,0.004895446001566151,0.004496500328829069,0.00411167777340478,0.004189662677688831,0.004196269952424369,0.005403981383284134,0.008055302551927903,0.006182338554874653,0.0063117657562344305,0.005898163140951177,0.005887307630015448,0.00538741116091653,0.00512266319473046,0.00647150003158092,0.00790563892622766,0.008402519680381595,0.00791807516026976,0.007782355532243077,0.007811347216024135,0.0084278737089867,0.007859700572131183,0.007741284416879624,0.007416336126745778,0.00599579119441317,0.006726122450269909,0.007247157719096254,0.0066906884684980635,0.006366608817536748,0.005991532765895237,0.005845945424708812,0.005547918229677046,0.005708490780644677,0.00567524424974321,0.006651714056914327,0.0063617950288170225,0.006663795903391486,0.006386051637102653,0.006504027391321117,0.006198741444729511,0.005866078713507931,0.00605926714618091,0.00605726465315921,0.006022647322084072,0.005935189393674109,0.00588393121919762,0.005832529416362111,0.006935916638605103,0.00816438832606771,0.008117909716180016,0.007750661829013579,0.007904068635138074,0.008897269721532363,0.008090316409038631,0.008068727484215955,0.008014938563091432,0.007528812010683685,0.00683969873315784,0.006448375818564887],
+        spanGaps: false
+      },
+      {
+        type: 'line',
+        label: "XRP/BTC (Bitstamp)",
+        yAxisID: 'btc',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: "rgba(153, 102, 255, 0.4)",
+        borderColor: "rgba(153, 102, 255, 1)",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: "rgba(153, 102, 255, 1)",
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(153, 102, 255, 1)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: [0,0,0,0,0,0,0,0.00002154570666352042,0.00003766270665903771,0.0000207173661498623,0.000019996018392817623,0.00001536620052990035,0.000011757577055897298,0.000008464332277182166,0.00003975176612127906,0.000022967273426814118,0.000030180121301754346,0.00010427051358128652,0.00009994410126416295,0.0001611682636158374,0.00012242937190328677,0.0001546554611155419,0.000185157281297126,0.0001632419964979368,0.00014312546015729977,0.00016288157043894955,0.00014909586107951397,0.00011212757624459338,0.00007730478416117739,0.00006534328224011408,0.00005368730014566975,0.00004195549176829056,0.000046613805368344154,0.000051758387705519614,0.0000413113733639715,0.000050006903453021686,0.00005165817044737319,0.0000803290406029562,0.00008415202736960539,0.00007268078873773385,0.00006016736032613597,0.00003742751273255913,0.00003097539153824166,0.000030413665078698245,0.000025380544462424585,0.000016782558061944827,0.000019808665720763262,0.00005609304534864688,0.000043661571128454264,0.000032160936413261857,0.00003486897702929427,0.00003589355736847533,0.000027601623450206797,0.0000256710601231374,0.000022813249643383283,0.00002410245239078733,0.000026040204617678234,0.0000244305847565513,0.00002444056762729503,0.00002526481377722634,0.000024312046872070397,0.000023112511544410613,0.00002284497470981342,0.000022110896316037233,0.00001998755494878669,0.000017893501493597408,0.000014132598683166852,0.000012405662073189088,0.000011306161108205491,0.000011740648740582372,0.000013536575081358202,0.000013277314925416078,0.0000069590061648443814,0.000006627545151311164,0.000006265499278841032,0.000007074352148516118,0.000006905875608744302,0.000006434112532242142,0.000004674531971835384,0.000006846626595186973,0.000008555851055638015,0.000010343955662082209,0.000008733878461268786,0.00000844557502542118,0.000010465356848418066,0.000010006479195278944,0.00001012761339772254,0.00000977164639538622,0.000010512507776496222,0.000011087562606476635,0.000012201839361393797,0.000014197161317346649,0.000012548005689617123,0.000012977549151429208,0.000013570838937863635,0.000014398402145960893,0.000013406592496123719,0.000013232954492372352,0.000022530200043393162,0.00003096420138881255,0.00003949706959391562,0.000049820725102790115,0.00007610099881038918,0.000075197078382953,0.00007246508614033487,0.00006909464321668177,0.0000745369040783836,0.00006072884697356881,0.0000601562594934097,0.00006362942629354965,0.00005881661327000431,0.00005589665870456028,0.000043935723442546705,0.00003721205774864818,0.000037649357826198364,0.000037387187433298916,0.000034026242603502983,0.000033884500883673896,0.00003519025753497314,0.00003493498721152391,0.000034555720044622495,0.000033460099149635,0.000030484750826487323,0.000025134778968523966,0.000028535188067292022,0.00003413596080099349,0.00003542615844158062,0.00003543093440869526,0.00004109130450879681,0.000046349374913790164,0.00003593861712945183,0.000028198341948772747,0.000029009153490274018,0.000028967154664734442,0.00002924660397208657,0.000032802697221460656,0.000031252954380843816,0.00003356124213513266,0.000033800054627648286,0.00003214082515397544,0.00003229005771363466,0.00003111170652003678,0.000026604086052406162,0.000020695658483389446,0.000020879123861852857,0.000018753408080292192,0.00001594339736802251,0.000014724600785151054,0.000012060424948108213,0.00001291260952475399,0.000013030070941048533,0.000011243752029708062,0.000013850018811095549,0.00001804144296254638,0.000014070973540265948,0.000015026487490028423,0.000013634755974681895,0.000013235586410001645,0.00001388021876446232,0.000012857433104511311,0.000017458615356168586,0.000020976299047516605,0.000020846240196091407,0.00001817625459552517,0.00001808510528632872,0.000019129884474053764,0.00002043217273620363,0.000019136773813973565,0.000018058902070763738,0.000017744750144690693,0.000014155316320643735,0.00001563039810452038,0.000015709150482759474,0.000014979076925768547,0.00001388172803804082,0.0000130917423350827,0.000013291854594660507,0.000010799882147366054,0.000009926336655678211,0.000008323294746261447,0.000008828713944194406,0.00001008856804328036,0.000010048004340737875,0.00000989344952728109,0.000009654050013964583,0.000009446320011282685,0.000009406422743074663,0.000010314303117462018,0.000010604420696669083,0.00001035202227738631,0.000010439853254499497,0.000009742307206316444,0.000009657312207769732,0.000011383115979563573,0.000013668189207267032,0.000013339351693101217,0.000012600706103247767,0.000012396246054724245,0.000013696570585543597,0.00001166381715725576,0.000011453348752442268,0.000011436154840870594,0.000010313964931116535,0.000009398371694510439,0.00000849967985955809],
+        spanGaps: false
+      },
+      /*
+      {
+        label: "Transaction per ledger (weekly)",
+        yAxisID: 'D',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: "rgba(255, 159, 64, 0.4)",
+        borderColor: "rgba(255, 159, 64, 1)",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: "rgba(255, 159, 64, 1)",
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(255, 159, 64, 1)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: [0],
+        spanGaps: false
+      }
+      */
+    ]
+  },
+/*
+  dataSetUpdate: function() {
     let accountsCreatedAll = this.get('statAccountsCreatedAll');
-    let date = this.get('statDate');
     let accountsCreated = this.get('statAccountsCreated');
     let paymentsCount = this.get('statPaymentsCount');
     let exchangesCount = this.get('statExchangesCount');
     let txPerLedger = this.get('statTxPerLedger');
     let ledgerCount = this.get('statLedgerCount');
-    //let ledgerInerval = this.get('statLedgerInerval');
+    let date = this.get('statNiceDate');
+    //let ledgerInterval = this.get('statLedgerInterval');
 
-    let respond = {
-      labels: ['Date'],
-      datasets: [
-        {
-          type: 'line',
-          label: "Accounts created (All)",
-          yAxisID: 'A',
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: "rgba(255, 99, 132, 0.4)",
-          borderColor: "rgba(255, 99, 132, 1)",
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: "rgba(255, 99, 132, 1)",
-          pointBackgroundColor: "#fff",
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(255, 99, 132, 1)",
-          pointHoverBorderColor: "rgba(220,220,220,1)",
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: [0],
-          spanGaps: false
-        },
-        {
-          label: "Accounts created (weekly)",
-          yAxisID: 'B',
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: "rgba(54, 162, 235, 0.4)",
-          borderColor: "rgba(54, 162, 235, 1)",
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: "rgba(54, 162, 235, 1)",
-          pointBackgroundColor: "#fff",
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(54, 162, 235, 1)",
-          pointHoverBorderColor: "rgba(220,220,220,1)",
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: [0],
-          spanGaps: false
-        },
-        {
-          label: "Payments (weekly)",
-          yAxisID: 'C',
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: "rgba(255, 206, 86, 0.4)",
-          borderColor: "rgba(255, 206, 86, 1)",
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: "rgba(255, 206, 86, 1)",
-          pointBackgroundColor: "#fff",
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(255, 206, 86, 1)",
-          pointHoverBorderColor: "rgba(220,220,220,1)",
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: [0],
-          spanGaps: false
-        },
-        {
-          label: "Exchanges (weekly)",
-          yAxisID: 'C',
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: "rgba(75, 192, 192, 0.4)",
-          borderColor: "rgba(75, 192, 192, 1)",
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: "rgba(75, 192, 192, 1)",
-          pointBackgroundColor: "#fff",
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(75, 192, 192, 1)",
-          pointHoverBorderColor: "rgba(220,220,220,1)",
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: [0],
-          spanGaps: false
-        },
-        {
-          label: "Ledgers closed (weekly)",
-          yAxisID: 'D',
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: "rgba(153, 102, 255, 0.4)",
-          borderColor: "rgba(153, 102, 255, 1)",
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: "rgba(153, 102, 255, 1)",
-          pointBackgroundColor: "#fff",
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(153, 102, 255, 1)",
-          pointHoverBorderColor: "rgba(220,220,220,1)",
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: [0],
-          spanGaps: false
-        },
-        {
-          label: "Transaction per ledger (weekly)",
-          yAxisID: 'D',
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: "rgba(255, 159, 64, 0.4)",
-          borderColor: "rgba(255, 159, 64, 1)",
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: "rgba(255, 159, 64, 1)",
-          pointBackgroundColor: "#fff",
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(255, 159, 64, 1)",
-          pointHoverBorderColor: "rgba(220,220,220,1)",
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: [0],
-          spanGaps: false
-        }
-      ]
-    };
+    let respond = this.get('dataSet');
 
     if (accountsCreatedAll && date && accountsCreated && paymentsCount && exchangesCount && ledgerCount && txPerLedger) {  //rewrite that
-      respond.labels = date;
       respond.datasets[0].data = accountsCreatedAll;
       respond.datasets[1].data = accountsCreated;
       respond.datasets[2].data = paymentsCount;
       respond.datasets[3].data = exchangesCount;
       respond.datasets[4].data = ledgerCount;
       respond.datasets[5].data = txPerLedger;
+      respond.labels = date;
     }
+    this.set('dataSet', respond);
+    //this.set('show', true);
+  },
 
-    return respond;
-  }.property('statDate'),
-
+  bitstampUpdate: function() {
+    let respond = this.get('dataSet');
+    let bitstampUSD = this.get('statBitstampUSD');
+    if (bitstampUSD) {
+      bitstampUSD = bitstampUSD.map(function(x) { if (x>0) {return (1 / x);} else {return 0;} });
+      respond.datasets[0].data = bitstampUSD; 
+      this.set('dataSet', respond);
+      console.log('bitstampUSD: ' + bitstampUSD);
+      this.set('show2', true); 
+    }
+  }.observes('statBitstampUSD'),
+*/ 
   dataOptions: {
     scales: {
       yAxes: [
         {
-          id: 'A',
+          id: 'accounts',
           //type: 'linear',
           //position: 'left',
-          display: false
+          display: false,
+          ticks: {
+            max: 9000,
+            min: 0
+          }
         },
         {
-          id: 'B',
+          id: 'payments',
+          //type: 'linear',
+          //position: 'left',
+          display: false,
+          ticks: {
+            max: 350000,
+            min: 0
+          }
+        },
+        {
+          id: 'usd',
           //type: 'linear',
           //position: 'right',
           display: false,
           ticks: {
-            max: 10000,
+            max: 0.06,
             min: 0
           }
         }, 
         {
-          id: 'C',
+          id: 'exchanges',
           //type: 'linear',
           //position: 'right',
           display: false,
           ticks: {
-            max: 700000,
+            max: 650000,
             min: 0
           }
         }, 
         {
-          id: 'D',
+          id: 'btc',
           //type: 'linear',
           //position: 'right',
           display: false,
-          //ticks: {
-          //  max: 700000,
-          //  min: 0
-          //}
+          ticks: {
+            max: 0.0002,
+            min: 0
+          }
         }
       ]
     }
