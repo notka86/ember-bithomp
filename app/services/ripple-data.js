@@ -115,6 +115,31 @@ export default Ember.Service.extend({
     });
   },
 
+  myActivatedAccounts: function(ripple, limit) {
+    let reqUrl = dataApi + 'accounts/?parent=' + ripple + '&limit=' + limit;
+    return this.get('ajax').request(reqUrl)
+    .then((data) => {
+      if (data.result) {
+        if (data.result !== 'success') {
+          if (data.message) {
+            console.log('myActivatedAccounts: ' + data.message);
+          } else {
+            console.log('myActivatedAccounts: ' + data.result);
+          }
+          return false;
+        } else {
+          return data.count;
+        }
+      } else {
+        console.log('myActivatedAccounts: can not fetch data');
+        return false;
+      }
+    }, () => {
+      console.log('myActivatedAccounts: server error');
+      return false;
+    });
+  },
+
   // need to be implemented in the backend! and return as endpoint
   bistampUSDprice: function(date) {
     let reqUrl = dataApi + 'exchange_rates/USD+rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B/XRP?date=' + date;

@@ -1,3 +1,12 @@
-{{#main-box title="Exchange"}}
-  {{crypto-list title="List of Crypto" crypto=model}}
+{{#main-box title="Exchange Automat"}}
+
+  <div class="input-prepend narrow-prepend" title="Exchange type">
+    <span class="add-on"><i class="fa fa-arrow-down green" id="typeArrow"></i></span>
+    <select class="input-large span10" name="extype" id="extype">
+      <option value="typeBuy">I want to BUY a specific amount</option>
+      <option value="typeSell">I want to PAY a specific amount</option>
+    </select>
+    <input name="extypevalue" id="extypevalue" type="hidden">
+  </div>
+  
 {{/main-box}}

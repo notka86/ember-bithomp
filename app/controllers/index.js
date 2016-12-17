@@ -24,6 +24,15 @@ export default Ember.Controller.extend({
     return false;
   }.property('explored', 'activatedAccounts'),
 
+  activatedProcent: function() {
+    let activated = this.get('activated');
+    let accounts = this.get('activatedAccounts');
+    if (activated > 0 && accounts > 0) {
+      return Math.round((activated/accounts) * 10000) / 100;
+    }
+    return false;
+  }.property('activated', 'activatedAccounts'),
+
   infoUpdate: function() {
     if (this.get('update')) {
       Ember.run.later(this, function() {
@@ -41,6 +50,12 @@ export default Ember.Controller.extend({
       this.get('ajax').request('/statistics')
       .then((data) => {
         this.set('explored', data.explored);
+        //this.set('activated', data.activated); //commented while not implemented on the backend
+      });
+
+      this.get('rippleData').myActivatedAccounts('rhUYLd2aUiUVYkBZYwTc5RYgCAbNHAwkeZ', 1000)
+      .then(accounts => {
+        this.set('activated', accounts);
       });
       
       this.get('rippleData').activatedAccounts()

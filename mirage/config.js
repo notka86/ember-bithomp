@@ -22,7 +22,10 @@ export default function() {
   //this.passthrough('https://bithomp.com/api/statistics');
 
   this.get('/statistics', function() {
-    return {"explored":81664};
+    return {
+      "explored": 81664, 
+      "activated": 200
+    };
   });
 
   //rippleDATA
@@ -59,7 +62,11 @@ export default function() {
     };
   });
 
-  this.get(rippleApi + 'accounts', function() {
+  this.get(rippleApi + 'accounts', function(db, request) {
+    let parent = request.queryParams.parent || false;
+    if (parent === 'rhUYLd2aUiUVYkBZYwTc5RYgCAbNHAwkeZ') {
+      return {"result":"success","count":230};
+    }
     return {"result":"success","count":228023, "accounts":[{"date":"2013-01-07T00:00:00Z","count":46},{"date":"2013-01-14T00:00:00Z","count":40}]};
   });
 

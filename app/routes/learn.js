@@ -45,6 +45,14 @@ export default Ember.Route.extend({
             title: "Corporate Disbursements",
             url: "https://www.youtube.com/watch?v=BWgCQVEr-rc"
           }
+        },
+        {
+          id: 5,
+          type: 'video',
+          attributes: {
+            title: "Blockchain Demystified",
+            url: "https://www.youtube.com/watch?v=LdOcXXB48fI"
+          }
         }
       ]
     });
