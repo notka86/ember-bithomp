@@ -3,6 +3,18 @@ import config from '../config/environment';
 
 export default Ember.Controller.extend({
 
+  types: [
+    {
+      title: 'I want to BUY a specific amount',
+      value: 'buy'
+    },
+    {
+      title: 'I want to PAY a specific amount',
+      value: 'sell'
+    }
+  ],
+
+  /*
   onStart: function() {
     var api = new ripple.RippleAPI({server: config.RippleWS});
     var address = 'rsuUjfWxrACCAwGQDsNeZUhpzXf1n1NK5Z';
@@ -22,5 +34,6 @@ export default Ember.Controller.extend({
     });
 
   }.on('init'),
+  */
 
 });
