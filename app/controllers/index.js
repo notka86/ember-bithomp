@@ -50,12 +50,7 @@ export default Ember.Controller.extend({
       this.get('ajax').request('/statistics')
       .then((data) => {
         this.set('explored', data.explored);
-        //this.set('activated', data.activated); //commented while not implemented on the backend
-      });
-
-      this.get('rippleData').myActivatedAccounts('rhUYLd2aUiUVYkBZYwTc5RYgCAbNHAwkeZ', 1000)
-      .then(accounts => {
-        this.set('activated', accounts);
+        this.set('activated', data.activated);
       });
       
       this.get('rippleData').activatedAccounts()

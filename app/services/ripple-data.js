@@ -115,6 +115,7 @@ export default Ember.Service.extend({
     });
   },
 
+  //not in use right now
   myActivatedAccounts: function(ripple, limit) {
     let reqUrl = dataApi + 'accounts/?parent=' + ripple + '&limit=' + limit;
     return this.get('ajax').request(reqUrl)
