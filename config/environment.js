@@ -52,9 +52,15 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     ENV.apiServer = 'https://bithomp.com';
+    //ENV.apiNamespace = '/api2';
     ENV.googleAnalytics = {
       webPropertyId: 'UA-72137603-1'
     };
+  }
+
+  if (environment === 'localapi') {
+    ENV.apiServer = 'http://localhost:8080';
+    ENV.apiNamespace = '';
   }
 
   return ENV;

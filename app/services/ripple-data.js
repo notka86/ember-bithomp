@@ -192,7 +192,7 @@ export default Ember.Service.extend({
             exchangesCount: [],
             txPerLedger: [],
             ledgerCount: [],
-            //ledgerInerval: []
+            //ledgerInterval: []
           };
 
           for (var i = 0, len = obj.length; i < len; i++){

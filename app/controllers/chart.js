@@ -24,7 +24,7 @@ export default Ember.Controller.extend({
       this.set('statPaymentsCount', stat.paymentsCount);
       this.set('statExchangesCount', stat.exchangesCount);
       this.set('statLedgerCount', stat.ledgerCount);
-      this.set('statLedgerInerval', stat.ledgerInerval);
+      this.set('statLedgerInterval', stat.ledgerInterval);
       this.set('statTxPerLedger', stat.txPerLedger);
       this.dataSetUpdate(); //CHECK
     });
