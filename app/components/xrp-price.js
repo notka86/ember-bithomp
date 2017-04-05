@@ -46,9 +46,9 @@ export default Ember.Component.extend({
     .then((rate) => {
       if ( this.get('live') && rate > 0 ) {
         this.set('rate', rate);
-        if (oldRate < rate) {
+        if (oldRate > rate) {
           this.set('color', 'orange');
-        } else if (oldRate > rate) {
+        } else if (oldRate < rate) {
           this.set('color', 'green');
         } else {
           this.set('color', 'blue');
