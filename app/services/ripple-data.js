@@ -10,7 +10,7 @@ export default Ember.Service.extend({
     let issuerName = issuer.substr(0, 7) + '...';
     if (issuer === 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B') {
       issuerName = 'Bitstamp';
-    } else if (issuer === 'rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq') {
+    } else if (issuer === 'rchGBxcD1A1C2tdxF6papQYZ8kjRKMYcL') {
       issuerName = 'Gatehub';
     } else if (issuer === 'raBDVR7JFq3Yho2jf7mcx36sjTwpRJJrGU') {
       issuerName = 'Bluzelle';
@@ -20,6 +20,12 @@ export default Ember.Service.extend({
       issuerName = 'eXRP';
     } else if (issuer === 'r94s8px6kSw1uZ1MV98dhSRTvc6VMPoPcN') {
       issuerName = 'TokyoJPY';
+    } else if (issuer === 'rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y') {
+      issuerName = 'Ripple Fox';
+    } else if (issuer === 'rB3gZey7VWHYRqJHLoHDEJXJ2pEPNieKiS') {
+      issuerName = 'Mr. Ripple';
+    } else if (issuer === 'razqQKzJRdB4UxFPWf5NEpEG3WMkmwgcXA') {
+      issuerName = 'RippleChina';
     } else { //wrong issuer
       if (issuer.substr(0, 1) !== 'r' || issuer.length < 26 || issuer.length > 35 ) {
         issuerName = issuer;

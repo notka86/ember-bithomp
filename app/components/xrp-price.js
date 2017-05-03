@@ -6,7 +6,6 @@ export default Ember.Component.extend({
   classNames: ['xrp-price', 'table-row'],
 
   color: 'blue',
-  show: true,
 
   didInsertElement: function() {
     this.set('live', true);
@@ -54,7 +53,7 @@ export default Ember.Component.extend({
           this.set('color', 'blue');
         }
       } else {
-        this.set('show', false);
+        this.set('rate', 'updating...');
       }
     });
   }

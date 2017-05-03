@@ -40,6 +40,8 @@ export default function() {
       return {"result":"success","amount":"1","converted":"0.8587817520368757","rate":"0.85878175"};
     } else if (currency === 'CNY') {
       return {"result":"success","amount":"1","converted":"0.06181838530901327","rate":"0.061818385"};
+    } else if (currency === 'BTC') {
+      return {"result":"success","amount":"1","converted":"0.00003868530901327","rate":"0.000038685"};
     } else if (currency === 'KRW') {
       return {"result":"success","amount":"1","converted":"10.368546133463816","rate":"10.368546"};
     }
