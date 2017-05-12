@@ -6,13 +6,11 @@ export default Ember.Controller.extend({
   ajax: Ember.inject.service(),
 
   onStart: function() {
-
     this.set('update', true);
     this.send('updateInfo');
     if (config.environment !== 'development') {
       this.infoUpdate();
     }
-
   },
 
   exploredProcent: function() {

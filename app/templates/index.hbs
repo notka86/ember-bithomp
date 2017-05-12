@@ -41,6 +41,18 @@
     <div class="table statistics">
       <div class="table-row">
         <div class="table-cell td1">
+          Activated accounts:
+        </div>
+        <div class="table-cell td2 blue bold">
+          {{#if activatedAccounts}}
+            {{add-commas activatedAccounts}}
+          {{else}}
+            updating...
+          {{/if}}
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell td1">
           Explored at Bithomp:
         </div>
         <div class="table-cell td2 blue bold">

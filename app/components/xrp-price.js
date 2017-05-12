@@ -43,11 +43,15 @@ export default Ember.Component.extend({
     let oldRate = this.get('rate');
     this.get('rippleData').xrpPrice(this.get('currency'), this.get('issuer'))
     .then((rate) => {
-      if ( this.get('live') && rate > 0 ) {
-        this.set('rate', rate);
-        if (oldRate > rate) {
+      if (this.get('live') && rate > 0) {
+        if (this.get('currency') === 'BTC') {
+          this.set('rate', 1 / rate);
+        } else {
+          this.set('rate', rate);
+        }
+        if (oldRate > this.get('rate')) {
           this.set('color', 'orange');
-        } else if (oldRate < rate) {
+        } else if (oldRate < this.get('rate')) {
           this.set('color', 'green');
         } else {
           this.set('color', 'blue');

@@ -1,5 +1,9 @@
 <a href={{chartLink}} target="_blank" class="table-cell">
-  XRP/<b>{{currency}}</b>
+  {{#if (eq currency 'BTC')}}
+    <b>BTC</b>/XRP
+  {{else}}
+    XRP/<b>{{currency}}</b>
+  {{/if}}
 </a>
 <span class="table-cell td2">(<i>{{name}}</i>): </span>
 <i class="table-cell td3 {{color}}">
